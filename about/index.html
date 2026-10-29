@@ -1614,7 +1614,7 @@
   <a href="#_2" class="md-nav__link">
     <span class="md-ellipsis">
       
-        数据从哪来
+        数据的来源
       
     </span>
   </a>
@@ -1625,7 +1625,7 @@
   <a href="#_3" class="md-nav__link">
     <span class="md-ellipsis">
       
-        怎么更新
+        更新方式
       
     </span>
   </a>
@@ -1636,7 +1636,7 @@
   <a href="#_4" class="md-nav__link">
     <span class="md-ellipsis">
       
-        技术栈
+        技术构成
       
     </span>
   </a>
@@ -1703,7 +1703,7 @@
   <a href="#_2" class="md-nav__link">
     <span class="md-ellipsis">
       
-        数据从哪来
+        数据的来源
       
     </span>
   </a>
@@ -1714,7 +1714,7 @@
   <a href="#_3" class="md-nav__link">
     <span class="md-ellipsis">
       
-        怎么更新
+        更新方式
       
     </span>
   </a>
@@ -1725,7 +1725,7 @@
   <a href="#_4" class="md-nav__link">
     <span class="md-ellipsis">
       
-        技术栈
+        技术构成
       
     </span>
   </a>
@@ -1772,9 +1772,9 @@
 
 
 <h1 id="_1">关于本站<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h1>
-<p>这是一个为睦头 Bot 自动生成的指令文档站。</p>
-<h2 id="_2">数据从哪来<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
-<p>文档里的指令、别名、权限、说明<strong>全部来自 AstrBot 面板的接口</strong>，没有手工抄写：</p>
+<p>这是一份为睦头 Bot 自动生成的指令文档。它不追求篇幅，只负责把「有哪些指令、怎么用」讲清楚。</p>
+<h2 id="_2">数据的来源<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
+<p>本站指令、别名、权限与说明<strong>全部取自 AstrBot 面板接口</strong>，不存在手工抄写：</p>
 <table>
 <thead>
 <tr>
@@ -1792,26 +1792,26 @@
 <td style="text-align: left;"><code>GET /api/plugin/get</code></td>
 </tr>
 <tr>
-<td style="text-align: left;">说明补全</td>
+<td style="text-align: left;">补充说明</td>
 <td style="text-align: left;">插件 README 与人工整理</td>
 </tr>
 </tbody>
 </table>
-<p>也就是说，<strong>你在面板里改了指令名、别名或权限，下次同步后这里会自动跟着变。</strong></p>
-<h2 id="_3">怎么更新<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h2>
-<p>站点由服务器上的一个同步脚本驱动，流程是：</p>
+<p>换句话说，在面板里改动指令名、别名或权限，下一次同步后这里会随之更新。</p>
+<h2 id="_3">更新方式<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h2>
+<p>站点由服务器上的同步脚本驱动，流程为：</p>
 <div class="highlight"><pre><span></span><code>拉取面板数据 → 重新生成 Markdown → MkDocs 构建 → Nginx 发布
 </code></pre></div>
 <div class="admonition note">
 <p class="admonition-title">同步频率</p>
-<p>每天自动同步一次。插件有新指令时，最多一天后就能在这里看到。</p>
+<p>每日自动同步一次。插件新增指令后，最迟一天即可在本站看到。</p>
 </div>
-<h2 id="_4">技术栈<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h2>
+<h2 id="_4">技术构成<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h2>
 <ul>
-<li><strong>AstrBot</strong> v4.29.3 —— 机器人框架，提供指令注册表与面板 API</li>
-<li><strong>MkDocs</strong> + <strong>Material for MkDocs</strong> —— 静态文档生成</li>
-<li><strong>jieba</strong> —— 中文分词，用于搜索索引</li>
-<li><strong>Nginx</strong> —— 静态站点托管</li>
+<li><strong>AstrBot</strong> v4.29.3 —— 机器人框架，提供指令注册表与面板接口</li>
+<li><strong>MkDocs</strong> 与 <strong>Material for MkDocs</strong> —— 静态文档生成</li>
+<li><strong>jieba</strong> —— 中文分词，用于构建搜索索引</li>
+<li><strong>Nginx</strong> 与 <strong>Certbot</strong> —— 站点托管与证书签发</li>
 </ul>
 <h2 id="_5">版本信息<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h2>
 <table>
@@ -1824,7 +1824,7 @@
 <tbody>
 <tr>
 <td style="text-align: left;">文档构建时间</td>
-<td style="text-align: left;">2026-10-29 00:50</td>
+<td style="text-align: left;">2026-10-30 01:20</td>
 </tr>
 <tr>
 <td style="text-align: left;">指令总数</td>
@@ -1837,8 +1837,8 @@
 </tbody>
 </table>
 <h2 id="_6">致谢<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h2>
-<p>所有插件都来自开源社区，作者名单见 <a href="../plugins/">插件清单</a>。感谢他们的工作。</p>
-<p>如果你发现文档有误，请联系机器人管理员，而不是修改数据源 —— 站点内容是从面板派生的，改这里等于白改。</p>
+<p>各插件均由开源社区维护，作者名单见 <a href="../plugins/">插件清单</a>。</p>
+<p>文档若存在错漏，请联系机器人管理员。内容是从面板派生的，直接修改本站不会影响机器人行为。</p>
 
 
 
@@ -1876,7 +1876,7 @@
       <div class="md-copyright">
   
     <div class="md-copyright__highlight">
-      由 AstrBot 面板数据自动生成 · 构建于 2026-10-29 00:50
+      由 AstrBot 面板数据自动生成 · 构建于 2026-10-30 01:20
 
     </div>
   

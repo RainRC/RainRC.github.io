@@ -525,7 +525,7 @@
   <a href="#_2" class="md-nav__link">
     <span class="md-ellipsis">
       
-        各级权限的差别
+        三级的差别
       
     </span>
   </a>
@@ -536,7 +536,7 @@
   <a href="#_3" class="md-nav__link">
     <span class="md-ellipsis">
       
-        为什么提示"没有权限"
+        提示「没有权限」时
       
     </span>
   </a>
@@ -1672,7 +1672,7 @@
   <a href="#_2" class="md-nav__link">
     <span class="md-ellipsis">
       
-        各级权限的差别
+        三级的差别
       
     </span>
   </a>
@@ -1683,7 +1683,7 @@
   <a href="#_3" class="md-nav__link">
     <span class="md-ellipsis">
       
-        为什么提示"没有权限"
+        提示「没有权限」时
       
     </span>
   </a>
@@ -1708,20 +1708,20 @@
 
 
 <h1 id="_1">权限说明<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h1>
-<p>不是所有指令对所有人都开放。睦头 Bot 沿用 AstrBot 的三级权限模型，在指令表里用「圆点 + 文字」标注：</p>
+<p>并非所有指令对所有人开放。睦头 Bot 沿用 AstrBot 的三级权限模型，在指令表中以「圆点 + 文字」标注：</p>
 <table>
 <thead>
 <tr>
 <th style="text-align: left;">标记</th>
 <th style="text-align: left;">权限等级</th>
-<th style="text-align: left;">谁能用</th>
+<th style="text-align: left;">适用范围</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td style="text-align: left;"><span class="perm">所有人</span></td>
 <td style="text-align: left;"><code>everyone</code></td>
-<td style="text-align: left;">任何能和机器人对话的人</td>
+<td style="text-align: left;">任何能与机器人对话的人</td>
 </tr>
 <tr>
 <td style="text-align: left;"><span class="perm perm-group">群管理员</span></td>
@@ -1737,26 +1737,26 @@
 </table>
 <div class="admonition note">
 <p class="admonition-title">为什么用圆点而不是颜色</p>
-<p>颜色只作为辅助强化，不单独承载含义 —— 即使分不清颜色，文字标签本身也说明了权限等级。</p>
+<p>颜色只作辅助强化，不单独承载含义。即使无法分辨颜色，文字标签本身也说明了权限等级。</p>
 </div>
-<h2 id="_2">各级权限的差别<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
-<p><strong>所有人</strong> 是绝大多数指令的默认等级。查询、签到、抽卡、小游戏都在这一级。</p>
-<p><strong>群管理员</strong> 主要用在会<strong>影响整个群</strong>的操作上，例如清空群会话的上下文（<code>/reset</code>）。
-这里判断的是「你是不是这个群的管理员」，所以每个人在不同群里看到的权限可能不同。</p>
-<p><strong>管理员</strong> 涉及机器人的运维，例如切换大模型服务商（<code>/provider</code>）、更新面板（<code>/dashboard_update</code>）。
-管理员名单配置在 AstrBot 面板的 <code>admins_id</code> 字段里。</p>
-<h2 id="_3">为什么提示"没有权限"<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h2>
-<p>如果你确认自己应该是管理员，却还是被拒绝，通常是这两种情况：</p>
+<h2 id="_2">三级的差别<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
+<p><strong>所有人</strong> 是绝大多数指令的默认等级，覆盖查询、签到、抽卡与小游戏。</p>
+<p><strong>群管理员</strong> 用于影响整个群的操作，例如清空群会话的上下文（<code>/reset</code>）。
+这里判断的是「你是否是这个群的管理员」，因此同一个人在不同群里看到的权限可能不同。</p>
+<p><strong>管理员</strong> 涉及机器人自身的运维，例如切换模型服务商（<code>/provider</code>）、更新面板（<code>/dashboard_update</code>）。
+名单配置在 AstrBot 面板的 <code>admins_id</code> 字段中。</p>
+<h2 id="_3">提示「没有权限」时<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h2>
+<p>如果你确认自己应该是管理员，却仍然被拒绝，通常是两种情况：</p>
 <ol>
-<li><strong>群聊里的身份没被识别。</strong> 部分平台拿不到群成员的管理员标记，此时会回退为"只有机器人管理员可用"。
-   遇到这种情况，直接私聊机器人使用指令。</li>
-<li><strong>管理员名单没同步。</strong> 管理员账号是在 AstrBot 面板里按平台账号 ID 配置的，改完需要重启、
-   或者至少等面板重载配置后才生效。</li>
+<li><strong>群内身份未被识别。</strong> 部分平台无法提供群成员的管理员标记，此时会退化为「仅机器人管理员可用」。
+   遇到这种情况，改为私聊使用该指令。</li>
+<li><strong>管理员名单未同步。</strong> 管理员账号在 AstrBot 面板中按平台账号 ID 配置，修改后需要重启，
+   或等待面板重新载入配置。</li>
 </ol>
 <div class="admonition tip">
-<p class="admonition-title">小建议</p>
-<p>日常使用中真正需要管理员权限的指令很少（只有 <code>/reset</code>、<code>/provider</code> 等）。
-如果你只是想清空对话上下文，用 <code>/new</code> 就行，它对所有人开放。</p>
+<p class="admonition-title">一般不需要管理员权限</p>
+<p>日常使用中真正依赖管理员权限的指令很少，主要用于 <code>/reset</code>、<code>/provider</code> 一类操作。
+如果只是想清空对话上下文，用 <code>/new</code> 即可，它对所有人开放。</p>
 </div>
 
 
@@ -1795,7 +1795,7 @@
       <div class="md-copyright">
   
     <div class="md-copyright__highlight">
-      由 AstrBot 面板数据自动生成 · 构建于 2026-10-29 00:50
+      由 AstrBot 面板数据自动生成 · 构建于 2026-10-30 01:20
 
     </div>
   

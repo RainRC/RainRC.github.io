@@ -341,59 +341,123 @@ input:focus-visible,
   border-radius: var(--radius-s);
 }
 
-/* ---------- 6. 首页 Hero ---------- */
-.hero {
-  margin: var(--space-4) 0 var(--space-6);
-  padding: var(--space-7) var(--space-5);
-  border-radius: 22px;
-  text-align: center;
-  background: var(--surface);
-  border: 1px solid var(--separator);
+/* ---------- 6. 首页：左对齐编辑版式（不加卡片框） ---------- */
+.md-main__inner:has(.home) .md-content {
+  max-width: 62rem;
+  margin-left: auto;
+  margin-right: auto;
 }
 
-.hero .eyebrow {
+.home {
+  padding: var(--space-6) 0 var(--space-3);
+  text-align: left;
+}
+
+.home .eyebrow {
   display: inline-block;
-  margin-bottom: var(--space-3);
-  padding: 4px 10px;
-  border-radius: 999px;
+  margin: 0 0 var(--space-5);
   font-size: 12px;
   font-weight: 600;
-  letter-spacing: 0.04em;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
   color: var(--accent-strong);
-  background: var(--accent-soft);
 }
 
-[data-md-color-scheme="slate"] .hero .eyebrow {
-  color: #b6cfb6;
+[data-md-color-scheme="slate"] .home .eyebrow {
+  color: #a6c3a6;
 }
 
-.hero h1 {
-  margin: 0 0 var(--space-3);
-  font-size: 40px;
-  line-height: 1.15;
+.home h1.home-title {
+  margin: 0 0 var(--space-5);
+  font-size: clamp(38px, 5.4vw, 60px);
+  line-height: 1.05;
   font-weight: 700;
-  letter-spacing: -0.025em;
+  letter-spacing: -0.038em;
   color: var(--label);
 }
 
-.hero-sub {
-  max-width: 38rem;
-  margin: 0 auto var(--space-5);
+.home-lede {
+  max-width: 27em;
+  margin: 0 0 var(--space-6);
   font-size: 17px;
-  line-height: 1.65;
+  line-height: 1.9;
   color: var(--label-2);
+  text-wrap: pretty;
 }
 
-.hero-actions {
+.home-actions {
   display: flex;
   gap: var(--space-3);
-  justify-content: center;
   flex-wrap: wrap;
+  justify-content: flex-start;
+}
+
+/* ---------- 6b. 标题扫光（拉伸 → 收缩，串行） ---------- */
+/* 初始：标题被裁切为 0 宽（不可见），底部横条同样不可见 */
+html.sweep-js .md-typeset :is(h1, h2) {
+  position: relative;
+  width: fit-content;
+  max-width: 100%;
+}
+
+html.sweep-js .md-typeset :is(h1, h2)::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -0.08em;
+  width: 100%;
+  height: 0.085em;
+  min-height: 2px;
+  border-radius: 999px;
+  background: currentColor;   /* 与标题文字同色 */
+  pointer-events: none;
+}
+
+html.sweep-js .md-typeset :is(h1, h2):not(.is-sweeping):not(.is-swept) {
+  clip-path: inset(-0.3em 100% -0.3em 0);
+}
+
+html.sweep-js .md-typeset :is(h1, h2).is-sweeping {
+  /* 第一阶段：从左向右铺开（文字与横条同步显现） */
+  animation: sweep-reveal 0.4s ease-out forwards;
+}
+
+html.sweep-js .md-typeset :is(h1, h2).is-sweeping::after {
+  /* 第二阶段：右端固定，左端向右收拢，宽度归零 */
+  animation: sweep-retract 0.3s ease-in 0.4s forwards;
+}
+
+html.sweep-js .md-typeset :is(h1, h2).is-swept {
+  clip-path: none;
+}
+
+/* 收尾：动画移除后横条必须保持归零，否则会残留成一条下划线 */
+html.sweep-js .md-typeset :is(h1, h2).is-swept::after {
+  left: 100%;
+  width: 0;
+}
+
+@keyframes sweep-reveal {
+  from { clip-path: inset(-0.3em 100% -0.3em 0); }
+  to   { clip-path: inset(-0.3em 0 -0.3em 0); }
+}
+
+@keyframes sweep-retract {
+  from { left: 0; width: 100%; }
+  to   { left: 100%; width: 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html.sweep-js .md-typeset :is(h1, h2),
+  html.sweep-js .md-typeset :is(h1, h2)::after {
+    animation: none !important;
+    clip-path: none !important;
+  }
 }
 
 /* ---------- 7. 按钮（44px 最小点击区域） ---------- */
 .md-button,
-.hero-actions .md-button {
+.home-actions .md-button {
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -411,103 +475,141 @@ input:focus-visible,
 }
 
 .md-button:hover,
-.hero-actions .md-button:hover {
+.home-actions .md-button:hover {
   background: var(--accent-soft-2);
   color: var(--btn-tint-fg);
   border-color: transparent;
 }
 
 .md-button--primary,
-.hero-actions .md-button--primary {
+.home-actions .md-button--primary {
   background: var(--btn-fill);
   border-color: transparent;
   color: var(--btn-fill-fg);
 }
 
 .md-button--primary:hover,
-.hero-actions .md-button--primary:hover {
+.home-actions .md-button--primary:hover {
   background: var(--btn-fill);
   color: var(--btn-fill-fg);
   opacity: 0.88;
 }
 
-/* ---------- 8. 数据条 ---------- */
+/* ---------- 8. 数据条：细线分隔，靠排版而非卡片框 ---------- */
 .stats {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: var(--space-3);
-  margin: 0 0 var(--space-6);
+  margin: var(--space-7) 0;
+  border-top: 1px solid var(--separator);
+  border-bottom: 1px solid var(--separator);
 }
 
 .stat {
-  padding: var(--space-5) var(--space-3);
-  border-radius: var(--radius-l);
-  text-align: center;
-  background: var(--surface);
-  border: 1px solid var(--separator);
+  padding: var(--space-5) var(--space-4) var(--space-5) 0;
+}
+
+.stat + .stat {
+  padding-left: var(--space-5);
+  border-left: 1px solid var(--separator);
 }
 
 .stat-num {
   display: block;
-  font-size: 30px;
+  font-size: 34px;
   font-weight: 600;
-  letter-spacing: -0.02em;
-  line-height: 1.1;
+  letter-spacing: -0.03em;
+  line-height: 1.05;
+  font-variant-numeric: tabular-nums;
   color: var(--label);
 }
 
 .stat-label {
   display: block;
-  margin-top: var(--space-1);
+  margin-top: 8px;
   font-size: 12px;
   font-weight: 500;
-  letter-spacing: 0.04em;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
   color: var(--label-2);
 }
 
-/* ---------- 9. 步骤 ---------- */
+/* ---------- 9. 步骤：编号细排，hairline 分隔 ---------- */
 .steps {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: var(--space-3);
-  margin: var(--space-4) 0 var(--space-6);
+  gap: var(--space-6);
+  margin: var(--space-4) 0 var(--space-7);
 }
 
 .step {
-  position: relative;
-  padding: var(--space-5) var(--space-4) var(--space-4);
-  border-radius: var(--radius-l);
-  background: var(--surface);
-  border: 1px solid var(--separator);
-  font-size: 15px;
-  color: var(--label-2);
-  line-height: 1.65;
+  border-top: 1px solid var(--separator);
+  padding-top: var(--space-4);
 }
 
 .step-no {
-  position: absolute;
-  top: -12px;
-  left: var(--space-4);
-  width: 26px;
-  height: 26px;
-  line-height: 26px;
-  text-align: center;
-  border-radius: 50%;
-  font-size: 13px;
+  display: block;
+  margin-bottom: var(--space-2);
+  font-size: 12px;
   font-weight: 600;
-  /* 用填充色+白字：白字压 #779977 只有 3.18:1，压 #55775b 是 5.03:1 */
-  color: var(--btn-fill-fg);
-  background: var(--btn-fill);
+  letter-spacing: 0.16em;
+  font-variant-numeric: tabular-nums;
+  color: var(--accent-strong);
+}
+
+[data-md-color-scheme="slate"] .step-no {
+  color: #a6c3a6;
+}
+
+.step h3 {
+  margin: 0 0 var(--space-2);
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--label);
+  letter-spacing: -0.01em;
 }
 
 .step p {
   margin: 0;
   font-size: 15px;
+  line-height: 1.75;
   color: var(--label-2);
 }
 
 .step strong {
   color: var(--label);
+  font-weight: 600;
+}
+
+/* ---------- 9b. 能力区：hairline 网格，无卡片框 ---------- */
+.feature-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  column-gap: var(--space-6);
+  margin: var(--space-4) 0 var(--space-6);
+}
+
+.feature {
+  border-top: 1px solid var(--separator);
+  padding: var(--space-4) 0 var(--space-5);
+}
+
+.feature h3 {
+  margin: 0 0 var(--space-2);
+  font-size: 17px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  color: var(--label);
+}
+
+.feature p {
+  margin: 0 0 var(--space-3);
+  font-size: 14px;
+  line-height: 1.75;
+  color: var(--label-2);
+}
+
+.feature a {
+  font-size: 14px;
   font-weight: 600;
 }
 
@@ -832,23 +934,26 @@ code.cmd:hover::after {
 }
 
 /* ---------- 18. 首页：隐藏两侧栏 ---------- */
-.md-main__inner:has(.hero) .md-sidebar {
+.md-main__inner:has(.home) .md-sidebar {
   display: none;
 }
 
-.md-main__inner:has(.hero) .md-content {
-  max-width: 60rem;
-  margin-left: auto;
-  margin-right: auto;
-}
+
 
 /* ---------- 19. 响应式 ---------- */
 @media screen and (max-width: 76.1875em) {
   .md-typeset h1 {
     font-size: 26px;
   }
-  .hero h1 {
-    font-size: 32px;
+  .home h1.home-title {
+    font-size: 44px;
+  }
+}
+
+/* 宽屏才生效的主动断行，窄屏交给自然回流 */
+@media screen and (max-width: 60em) {
+  .br-wide {
+    display: none;
   }
 }
 
@@ -856,17 +961,26 @@ code.cmd:hover::after {
   .stats {
     grid-template-columns: repeat(2, 1fr);
   }
+  .stat:nth-child(odd) {
+    padding-left: 0;
+    border-left: 0;
+  }
+  .stat:nth-child(even) {
+    padding-left: var(--space-5);
+    border-left: 1px solid var(--separator);
+  }
   .steps {
     grid-template-columns: 1fr;
+    gap: var(--space-5);
   }
-  .hero {
-    padding: var(--space-6) var(--space-4);
-    border-radius: 18px;
+  .feature-grid {
+    grid-template-columns: 1fr;
   }
-  .hero h1 {
-    font-size: 28px;
+  .home h1.home-title {
+    font-size: 34px;
+    letter-spacing: -0.03em;
   }
-  .hero-sub {
+  .home-lede {
     font-size: 16px;
   }
   .md-typeset table:not([class]) {
@@ -878,18 +992,27 @@ code.cmd:hover::after {
   .stats {
     grid-template-columns: 1fr;
   }
+  .stat,
+  .stat:nth-child(even) {
+    padding-left: 0;
+    border-left: 0;
+  }
   .stat {
-    display: flex;
-    align-items: baseline;
-    justify-content: center;
-    gap: var(--space-2);
-    padding: var(--space-4);
+    padding-top: var(--space-4);
+    padding-bottom: var(--space-4);
   }
   .stat-num {
-    font-size: 24px;
+    font-size: 26px;
   }
-  .stat-label {
-    margin-top: 0;
+}
+
+/* 打印时不做入场动画，保证纸上内容完整 */
+@media print {
+  html.sweep-js .md-typeset :is(h1, h2),
+  html.sweep-js .md-typeset :is(h1, h2)::after {
+    animation: none !important;
+    clip-path: none !important;
+    width: 0 !important;
   }
 }
 
